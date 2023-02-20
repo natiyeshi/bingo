@@ -57,9 +57,9 @@ nav .circle:nth-child(2n + 1){
     transform: rotate(-30deg);
 }
 
-nav .header{
+/* nav .header{
     
-}
+} */
 
 nav .links{
     display: flex;
