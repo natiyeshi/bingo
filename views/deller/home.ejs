@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Welcome</title>
+      <!-- font awsome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <!-- mycss -->
+    <link rel="stylesheet" href="../assets/home.css">
+</head>
+<body>
+    <nav>
+        <div class="circles">
+            <div class="circle">B</div>
+            <div class="circle">I</div>
+            <div class="circle">N</div>
+            <div class="circle">G</div>
+            <div class="circle">O</div>
+        </div>
+        <div class="header">
+            Dealer
+        </div>
+        <div class="links">
+            <div class="profile">Profile</div>
+            <div class="logout">Logout</div>
+        </div>
+    </nav>
+    <main>
+
+        <div class="left">
+            <div class="message">Number</div>
+            <div class="generator">
+                <div class="main-circle">
+                    <div class="circle" id="currentValue">
+                        Start
+                    </div>
+                </div>
+                
+            </div>
+            <div class="buttons">
+                <div class="start" onclick="start()">start</div>
+            </div>
+        </div>
+        <!-- right  -->
+
+        <div class="right">
+            
+                <div class="bingo">
+                    <div class="b">b</div>
+                    <div class="i">i</div>
+                    <div class="n">n</div>
+                    <div class="g">g</div>
+                    <div class="o">o</div>
+                </div>
+
+                <div class="result">
+
+                   
+                    <div class="row ">
+                        <div class="col b-box">. . . .</div>
+                        <div class="col i-box">. . . .</div>
+                        <div class="col n-box">. . . .</div>
+                        <div class="col g-box">. . . .</div>
+                        <div class="col o-box">. . . .</div>
+                    </div>
+    
+        
+    
+    
+    
+                </div>
+            
+        </div>
+
+    </main>
+
+    <div class="background-block"></div>
+    <div class="bet-here">
+        <div class="top">
+            <div class="top-topic">Bet</div>
+        </div>
+        <form action="">
+            <label for="">number of players</label>
+            <input type="number" min="2" placeholder="Insert number of players">
+
+            <label for="">bet amount</label>
+            <input type="number" min="10" placeholder="Insert number of players">
+
+            <button>bet</button>
+            <br><br>
+            <div class="message">your balance is 500 birr</div>
+        </form>
+        
+    </div>
+
+    <div class="logout-div">
+        <div class="top">
+            <div class="top-topic">Log out</div>
+        </div>
+
+        <div class="logout-message">Are you sure ?</div>
+        <div class="button">logout</div>
+    </div>
+</body>
+</html>
+<script src="../assets/js.js"></script>

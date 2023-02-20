@@ -1,0 +1,90 @@
+
+main .right{
+    display: grid;
+    grid-template-rows: 20% 80%;
+}
+
+main .right-top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main .right-top input{
+    border-radius: .3em 0 0 0.3em;
+    padding: .3em;
+    width: 50%;
+    border-right: none;
+    box-shadow: .5em .4em .8em .3em rgb(196, 190, 190);
+}
+
+main .right-top button{
+    box-shadow: .5em .4em .8em .3em rgb(196, 190, 190);
+    border-radius: 0 .3em .3em 0;
+    padding: .3em;
+    background-color: var(--primary-color);
+    color: white;
+    border-left: none;
+}
+
+.delete-dealer, .charge-dealer{
+    position: fixed;
+    border-radius: .3em;
+    top: 20%;
+    left: 30%;
+    width: 40%;
+    height: 40vh;
+    background-color: white;
+    display: none;
+    grid-template-rows: 25% 50% 25%;
+}
+
+.delete-dealer .top,.charge-dealer .top{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 85% 15%;
+    background: var(--primary-color);
+    color:white;
+    justify-content: center;
+    place-items: center;
+    border-radius: .2em .2em 0 0;
+
+}
+
+.delete-dealer .message , .charge-dealer .message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+}
+.delete-dealer button , .charge-dealer button{
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    width: 25%;
+    justify-content: center;
+    height: 20px;
+    color: white;
+    background-color: brown;
+    padding: .3em;
+    border-radius: .3em;
+}
+
+.delete-dealer button:hover{
+    background: rgb(141, 33, 33);
+}
+.charge-dealer .message{
+    gap: 1em;
+}
+
+.charge-dealer input{
+    width: 50px;
+}
+
+.charge-dealer button{
+    background: rgb(64, 128, 0);
+}
+.charge-dealer button:hover{
+    background: rgb(56, 110, 1);
+}
+
