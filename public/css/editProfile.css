@@ -4,7 +4,7 @@ main .right{
 }
 
 main .right-top{
-    display: flex;
+    display: flex; 
     justify-content: center;
     align-items: center;
 }

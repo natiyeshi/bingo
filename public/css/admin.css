@@ -88,3 +88,8 @@ main .right-top button{
     background: rgb(56, 110, 1);
 }
 
+i,.pointer{
+    cursor: pointer;
+}
+
+
