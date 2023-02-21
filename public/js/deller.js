@@ -1,4 +1,3 @@
-
 let columns = document.querySelector(".result")
 function fillColumn() {
     columns.innerHTML = ""
@@ -16,6 +15,8 @@ function fillColumn() {
 }
 
 fillColumn()
+
+
 
 let forms = document.querySelectorAll("form")
 forms.forEach(element => {
@@ -41,8 +42,42 @@ function shuffle() {
     return shuffledFile
 }
 
+async function getBalance(){
+    let data = await fetch("/dealer/getBalance", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+            
+    return  await data.text()
+}
+  
+
+function setBalance(balance){
+    let xml = new XMLHttpRequest()
+    xml.open("post","/dealer/setBalance")
+    xml.setRequestHeader("Accept", "application/json");
+    xml.setRequestHeader("Content-Type", "application/json");
+    
+    let data = `{
+        "balance": `+balance+`
+    }`;
+    xml.send(data)
+}
+// setBalance(10)
+
+async function getAllData(){
+    let data = await fetch("/dealer/getAllData",{
+        method:"post",
+        headers: { 'Content-Type': 'application/json' },
+    })
+    let value = await data.json()
+    return  value
+}
+
+
 
 let intervalId
+let betMessage = document.querySelector("#bet-message")
 let bgBlock = document.querySelector(".background-block")
 let buttons = document.querySelector(".buttons")
 let currentValue = document.querySelector("#currentValue")
@@ -53,7 +88,20 @@ let gcol = document.querySelectorAll(".g-box")
 let ocol = document.querySelectorAll(".o-box")
 let bc = ic = nc = gc = oc = 0
 
+
+ async function setBetMessage(){
+    let balance = await getBalance()
+    betMessage.innerHTML = `
+             your balance is ${balance}  birr
+            <br> <a href='/dealer/logout' class="pl-3">logout</a> 
+      `
+}
+
+setBetMessage()
+
+
 function start() {
+    setBetMessage()
     buttons.innerHTML = `<button class="start bg-success  text-white" onclick="beingo()">beingo</button>`
     let getShuffledFile = shuffle()
     currentValue.classList.add("circleIt")
@@ -85,6 +133,7 @@ function start() {
 }
 
 function beingo() {
+
     clearInterval(intervalId)
     currentValue.classList.remove("circleIt")
     buttons.innerHTML = `<button class="start bg-primary  text-white" onclick="restart()">Restart</button>`
@@ -108,8 +157,8 @@ function restart() {
 }
 
 
-function placeBet(button) {
-    let balance = 10
+async function placeBet(button) {
+    let balance = await getBalance()
     let betHere = document.querySelector(".bet-here")
     let betMessage = document.querySelector("#bet-message")
     let numOfPlayers = document.querySelector("#num_players").value.trim()
@@ -136,17 +185,24 @@ function placeBet(button) {
     }
     if(pass == false) return
     let percentage = (amount * numOfPlayers) * 0.2
+   
     if (percentage > balance){
-        betMessage.innerHTML = "your balance is insufficient !!"
+        betMessage.innerHTML = "your balance is insufficient !! <a href='/dealer/logout' class='pl-3'>logout</a>"
         betMessage.classList.add("text-danger")
-    } else{
-        bgBlock.style.display = "none"
-        betHere.style.display = "none"
-    }
+        return
+    } 
+    setBalance(balance - percentage)    
+    bgBlock.style.display = "none"
+    betHere.style.display = "none"
 }
 
 
-function showProfile(bool) {
+async function showProfile(bool) {
+    let data = await getAllData()
+    document.querySelector("#profileFile").innerHTML = `      
+        <span>Username <strong>${data.username}</strong></span>
+        <span>Balance <strong> ${data.balance} birr</strong></span>
+    `
     if(bool){
         bgBlock.style.display = "block"
         document.querySelector(".see-profile").style.display = "grid"
@@ -154,6 +210,7 @@ function showProfile(bool) {
     }
     bgBlock.style.display = "none"
     document.querySelector(".see-profile").style.display = "none"
+    
 }
 
 function showLogout(bool) {
@@ -165,3 +222,4 @@ function showLogout(bool) {
     bgBlock.style.display = "none"
     document.querySelector(".logout-div").style.display = "none"
 }
+

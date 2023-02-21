@@ -16,7 +16,7 @@ const dealerScema = new mongoose.Schema({
         default:0
     },
     balanceHistory :  {
-        type : [Number],
+        type : [Number], 
         default : [0]
     },
     createdAt : {
@@ -27,6 +27,6 @@ const dealerScema = new mongoose.Schema({
 })
 
 module.exports = [
-    mongoose.model("admin",adminScema),
-    mongoose.model("dealer",dealerScema)
+    mongoose.model("admins",adminScema),
+    mongoose.model("dealers",dealerScema)
 ]

@@ -20,4 +20,3 @@ function chargeDealer(bool) {
     bgBlock.style.display = "block"
     chargeDiv.style.display = "grid"
 }
-

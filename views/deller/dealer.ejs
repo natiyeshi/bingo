@@ -12,9 +12,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <!-- mycss -->
-    <link rel="stylesheet" href="../../public/css/dealer.css">
+    <link rel="stylesheet" href="../css/dealer.css">
 </head>
 <body>
+    <script>
+        const BALANCE = "<%- balance%>"
+    </script>
+
+
     <nav>
         <div class="circles">
             <div class="circle">B</div>
@@ -24,7 +29,7 @@
             <div class="circle">O</div>
         </div>
         <h2 class="header">
-            Dealer
+            Dealer <%= username%>
         </h2>
         <div class="links">
             <div class="profile" onclick="showProfile(true)">Profile</div>
@@ -71,9 +76,6 @@
                         <div class="col o-box">. . . .</div>
                     </div> -->
     
-        
-    
-    
     
                 </div>
             
@@ -96,7 +98,10 @@
             <button onclick="placeBet(this)">bet</button>
             <br><br>
         </form>
-        <div class="message" id="bet-message">your balance is 500 birr</div>
+        <div class="message" id="bet-message">
+            your balance is <%= balance%>  birr
+            <br> <div class="pl-3 text-danger pointer-event" onclick="showLogout()">logout</div> 
+        </div>
         
     </div>
 
@@ -107,7 +112,7 @@
         </div>
 
         <div class="logout-message">Are you sure ?</div>
-        <button class="button">logout</button>
+        <button class="button" onclick="location.href='/dealer/logout'">logout</button>
     </div> 
 
     <div class="see-profile">
@@ -116,12 +121,10 @@
             <i onclick="showProfile(false)" class="bi bi-x fa-2x"></i>
         </div>
 
-        <div class="message">
-            <span>Username <strong>Natnael</strong></span>
-            <span>Balance <strong>500 birr</strong></span>
+        <div class="message" id="profileFile">
         </div>
     </div> 
 
 </body>
 </html>
-<script src="../../public/js/deller.js"></script>
+<script src="../js/deller.js"></script>

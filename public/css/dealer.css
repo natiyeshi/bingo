@@ -228,7 +228,7 @@ main .row .col{
 
 
 .background-block{
-    display: none;
+    display: block;
     position: absolute;
     left: 0;
     top: 0;
@@ -247,7 +247,7 @@ main .row .col{
     width: 40%;
     height: 60vh;
     background-color: white;
-    display: none;
+    display: grid;
     grid-template-rows: 15% 70% 15%;
 }
 
