@@ -12,8 +12,8 @@
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
        <!-- mycss -->
-       <link rel="stylesheet" href="css/common.css">
-       <link rel="stylesheet" href="css/admin.css">
+       <link rel="stylesheet" href="../css/common.css">
+       <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
     <main>
@@ -25,10 +25,10 @@
             
             <div class="left-mid">
 
-                <div class="mid-links active" onclick="location.href='/admin/home'"> <i class="bi bi-house-fill"></i> home</div>
+                <div class="mid-links active" onclick="location.href='/admin'"> <i class="bi bi-house-fill"></i> home</div>
                 <div class="mid-links" onclick="location.href='/admin/addDealer'"><i class="bi bi-person-plus-fill"></i> add dealer</div>
-                <div class="mid-links" onclick="location.href='admin/editProfile'"><i class="bi bi-pencil-square"></i>edit profile</div>
-                <div class="mid-links"><i class="bi bi-box-arrow-in-right"></i>log out</div>
+                <div class="mid-links" onclick="location.href='/admin/editProfile'"><i class="bi bi-pencil-square"></i>edit profile</div>
+                <div class="mid-links" onclick="location.href='/admin/logout'"><i class="bi bi-box-arrow-in-right"></i>log out</div>
 
             </div>
 
@@ -41,7 +41,7 @@
         <div class="right">
 
             <div class="right-top">
-                <input type="search" name="search" id="search">
+                <input type="search" oninput="search(this.value)" name="search" id="search">
                 <button>search</button>
             </div>
             
@@ -70,15 +70,7 @@
                             <td class="bg-danger pointer text-white" onclick="deleteDealer(true)">Mark</td>
                             <td class="bg-primary pointer text-white" onclick="chargeDealer(true)">Otto</td>
                           </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td class="bg-danger pointer text-white" onclick="deleteDealer(true)">Mark</td>
-                            <td class="bg-primary pointer text-white" onclick="chargeDealer(true)">Otto</td>
-                           </tr>
-                          
+                                                   
                         
                         </tbody>
                   </table>
@@ -119,4 +111,4 @@
 
 </body>
 </html>
-<script src="js/admin.js"></script>
+<script src="../js/admin.js"></script>

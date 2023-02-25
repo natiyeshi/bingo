@@ -12,8 +12,8 @@
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
        <!-- mycss -->
-       <link rel="stylesheet" href="../../public/css/common.css">
-       <link rel="stylesheet" href="../../public/css/addDeller.css">
+       <link rel="stylesheet" href="../css/common.css">
+       <link rel="stylesheet" href="../css/addDeller.css">
        
 </head>
 <body>
@@ -26,10 +26,10 @@
             
             <div class="left-mid">
           
-                <div class="mid-links" onclick="location.href='admin.html'"> <i class="bi bi-house-fill"></i> home</div>
-                <div class="mid-links active" onclick="location.href='addDeller.html'"><i class="bi bi-person-plus-fill"></i> add dealer</div>
-                <div class="mid-links" onclick="location.href='editProfile.html'"><i class="bi bi-pencil-square"></i>edit profile</div>
-                <div class="mid-links"><i class="bi bi-box-arrow-in-right"></i>log out</div>
+                <div class="mid-links" onclick="location.href='/admin'"> <i class="bi bi-house-fill"></i> home</div>
+                <div class="mid-links active" onclick="location.href='/admin/addDealer'"><i class="bi bi-person-plus-fill"></i> add dealer</div>
+                <div class="mid-links" onclick="location.href='/admin/editProfile'"><i class="bi bi-pencil-square"></i>edit profile</div>
+                <div class="mid-links" onclick="location.href='/admin/logout'"><i class="bi bi-box-arrow-in-right"></i>log out</div>
 
             </div>
 
@@ -48,16 +48,47 @@
                 
                     <legend  class="w-auto pl-3 pr-3 font-weight-bold">Form</legend>
     
-                    <form action="" method="get">
+                    <form action="createDealer" type="submit" method="post">
                         
-                        <label for="">username</label>
-                        <input type="text" placeholder="username" id="username"> 
-                        <label for="">amount</label>
-                        <input type="text" placeholder="username" id="username"> 
-                        <label for="">password</label>
-                        <input type="text" placeholder="username" id="username"> 
-                        <label for="">confirm</label>
-                        <input type="text" placeholder="username" id="username"> 
+                        <label  class="
+                            <% if(typeof(userError) != "undefined"){%>
+                                <% if(userError != "") {%> 
+                                    <%= "text-danger" %>
+                            <% } } %>
+                            ">
+                            Username
+                            <% if(typeof(userError) != "undefined") { %>
+                                <%= userError %> 
+                            <% } %>     
+                        </label>
+                        <input type="text" placeholder="username" name="username" value="<%= typeof(username) != "undefined" ? username : "" %>"> 
+                        <label for="">amount <sup>optional</sup></label>
+                        <input type="number" min="0" placeholder="username" name="amount" value="<%= typeof(amount) != "undefined" ? amount : "0" %>"> 
+                        <label  class="
+                            <% if(typeof(passError) != "undefined"){%>
+                                <% if(passError != "") {%> 
+                                    <%= "text-danger" %>
+                            <% } } %>
+                            ">
+                            Password
+                            <% if(typeof(passError) != "undefined") { %>
+                                <%= passError %> 
+                            <% } %>     
+                        </label>
+                        
+                        <input type="password" placeholder="username" name="password" > 
+                        <label  class="
+                            <% if(typeof(confirmError) != "undefined"){%>
+                                <% if(confirmError != "") {%> 
+                                    <%= "text-danger" %>
+                            <% } } %>
+                            ">
+                            Confirm
+                            <% if(typeof(confirmError) != "undefined") { %>
+                                <%= confirmError %> 
+                            <% } %>     
+                        </label>
+                        <input type="password" placeholder="username" name="confirm" > 
                       
                         <button type="submit">Register</button>
                     </form>

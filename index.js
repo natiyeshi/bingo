@@ -15,16 +15,14 @@ app.use("/js",express.static(__dirname+"public/js"))
 app.use("/img",express.static(__dirname+"public/img"))
 
 
-// scemas
-const [AdminModel,UserModel] = require("./mongo/schemas") 
 //middlewares
-const {isDealerIn,isDealerNotIn} = require("./mongo/middleware") 
+const {isDealerIn,isDealerNotIn,isAdminIn,isAdminNotIn} = require("./mongo/middleware") 
 
 // routers
 const adminRouter = require("./routes/admin")
 const dealerRouter = require("./routes/dealer")
 //db connections
-const { dealerLogin } = require("./mongo/functions")
+const { dealerLogin,adminLogin } = require("./mongo/functions")
  
 // app.use(express.json()) 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -42,7 +40,7 @@ app.use(session({
 }))
  
 
-app.use("/admin",adminRouter)
+app.use("/admin",isAdminIn,adminRouter)
 app.use("/dealer",isDealerIn,dealerRouter)
 
 
@@ -51,7 +49,7 @@ mongoose.connect("mongodb://localhost/bingo",()=>{
     console.log("connected")
 })
 
-app.get("/",isDealerNotIn,(req,res)=>{
+app.get("/",isDealerNotIn,(req,res)=>{ 
     res.render("deller/login.ejs")
 }) 
 
@@ -79,6 +77,37 @@ app.post("/login",async (req,res)=>{
     req.session.data = checker.data
     req.session.loged = true
     res.redirect("dealer")
+})
+
+app.get("/login/admin",async (req,res)=>{
+    res.render("admin/login")
+})
+
+app.post("/login/admin",isAdminNotIn,async (req,res)=>{
+    let {username,password} = req.body
+    let pass = true
+    let userError = passError = ""
+    if(username.trim() == ""){ 
+        pass = false
+        userError = " *"
+    }
+    if (password.trim() == ""){
+        pass = false
+        passError = " *"
+    }
+    if(!pass){
+        return res.render("admin/login.ejs",{userError,passError,username,password})
+    }
+    let checker = await adminLogin(username,password)
+    if(checker.pass == false){
+        userError = "Incorrect username or"
+        passError = "Incorrect password"
+        return res.render("admin/login.ejs",{userError,passError,username,password})
+    }
+    req.session.data = checker.data
+    req.session.admin = true
+    res.redirect("/admin")
+    
 })
 
 app.listen(PORT,()=>{

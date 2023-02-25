@@ -99,7 +99,6 @@ let bc = ic = nc = gc = oc = 0
 
 setBetMessage()
 
-
 function start() {
     setBetMessage()
     buttons.innerHTML = `<button class="start bg-success  text-white" onclick="beingo()">beingo</button>`
