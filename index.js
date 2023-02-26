@@ -6,7 +6,7 @@ const session = require('express-session');
 const MongoStore = require("connect-mongo")
 
 const app = express()
-const PORT = 4000 
+const port = process.env.PORT | 4000 
 
 app.set("view engine","ejs")
 app.use(express.static("public"))
@@ -27,7 +27,10 @@ const { dealerLogin,adminLogin } = require("./mongo/functions")
 // app.use(express.json()) 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-const url = "mongodb://127.0.0.1:27017/bingo"
+
+// const url = "mongodb://127.0.0.1:27017/bingo"
+const url = "mongodb+srv://natiyeshimongo:natiyeshimongo@cluster0.aliussy.mongodb.net/bingo"
+
 //sessions
 app.use(session({
     secret:"fdasddfadsfas", 
@@ -45,7 +48,7 @@ app.use("/dealer",isDealerIn,dealerRouter)
 
 
 mongoose.set("strictQuery", false);
-mongoose.connect("mongodb://localhost/bingo",()=>{ 
+mongoose.connect(url,()=>{ 
     console.log("connected")
 })
 
@@ -110,7 +113,7 @@ app.post("/login/admin",isAdminNotIn,async (req,res)=>{
     
 })
 
-app.listen(PORT,()=>{
-    console.log("on port 4000");
+app.listen(port,()=>{
+    console.log(`on port ${port}`);
 })
 

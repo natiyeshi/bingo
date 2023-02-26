@@ -109,9 +109,9 @@ main form{
 
 main form input, main form label{
     width: 30%;
+    padding: 3px;
+    border-radius: .4em;
 }
-
-
 
 main .contacts{
     display: flex;
