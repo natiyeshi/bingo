@@ -8,7 +8,7 @@ const MongoStore = require("connect-mongo")
 const app = express()
 const port = process.env.PORT | 4000 
 
-app.set("view engine","ejs")
+app.set("view engine","ejs") 
 app.use(express.static("public"))
 app.use("/css",express.static(__dirname+"public/css"))
 app.use("/js",express.static(__dirname+"public/js"))
@@ -28,8 +28,8 @@ const { dealerLogin,adminLogin } = require("./mongo/functions")
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-// const url = "mongodb://127.0.0.1:27017/bingo"
-const url = "mongodb+srv://natiyeshimongo:natiyeshimongo@cluster0.aliussy.mongodb.net/bingo"
+const url = "mongodb://127.0.0.1:27017/bingo"
+// const url = "mongodb+srv://natiyeshimongo:natiyeshimongo@cluster0.aliussy.mongodb.net/bingo"
 
 //sessions
 app.use(session({
