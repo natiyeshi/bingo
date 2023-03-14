@@ -3,6 +3,14 @@
     --secondary-color:#004F68;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+ 
+:target {
+    scroll-margin-top: 10em;
+}
+
 body{
     user-select: none;
     background-color: rgb(248, 248, 248);
@@ -86,7 +94,7 @@ main .left{
     background-color: var(--primary-color);
     color: white;
     display: grid;
-    grid-template-rows: 15% 70% 15%;
+    grid-template-rows: 60% 25% 15%;
     text-align: center;
     text-transform: capitalize;
 }
@@ -94,18 +102,29 @@ main .left{
 .left .message{
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
+}
+
+.left .message .last{
+    width: 25%;
+    height: 70px;
+    background: rgb(126, 109, 109);
+    display: flex;
+    align-items: center;
     justify-content: center;
+    font-size: larger;
 }
 
 .left .generator{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .left .generator .main-circle{
-    width:200px;
-    height:200px;
-    background-color: white;
+    width:44vh;
+    height:44vh;
+    border: .6em solid white;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -114,8 +133,8 @@ main .left{
 }
 
 .left .generator .main-circle .circle{
-    width: 190px;
-    height: 190px;
+    width: 100%;
+    height: 100%;
     background-color: white;
     border-radius: 50%;
     border: .6em solid var(--primary-color);
@@ -126,13 +145,20 @@ main .left{
     font-size: x-large;
     font-weight: bolder;
 }
+
+#currentValue {
+   font-size: calc(16px + 1vw);
+}
+
 .circleIt{
     animation: bit 1s infinite alternate;
 }
 
+
+
 @keyframes bit {
     from{
-        border: .6em solid #002a36;
+        border: .6em solid #ffffff;
     }
     to{
         border: 2em solid var(--primary-color);
@@ -204,14 +230,14 @@ main .result .row{
 }
 main .row .col{
     background-color: #c6cdcf;
-    height: 70px;
+    height: 120px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: larger;
+    font-size: calc(16px + 1vw);
     font-weight: bold;
     border: 3px solid white;
-
+    text-transform: capitalize;
 }
 
 .checked{
