@@ -1,4 +1,4 @@
-
+// alert(localStorage.getItem("played"))
 if(localStorage.getItem("played") == 1){
     document.querySelector(".background-block").style.display = "none"
     document.querySelector(".bet-here").style.display = "none"
@@ -286,6 +286,7 @@ function showLogout(bool) {
     document.querySelector(".logout-div").style.display = "none"
 }
 function logout() {
+    localStorage.setItem("played",0)
     location.href='/dealer/logout'
 }
 

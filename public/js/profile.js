@@ -23,12 +23,17 @@ async function getHistory() {
 }
 
 getHistory()
+function logout(){
+    localStorage.setItem("played",0)
+    location.href='/dealer/logout'
+}
 
 async function setHistory(par){
 
     let place = document.querySelector(".games .middle")
     let message = ""
-    if(HISTORY.length < 1){
+    console.log(HISTORY,HISTORY.length < 1 || HISTORY == null);
+    if(HISTORY.length < 1 || HISTORY == null){
         message = `
         <div class="message">
             <div class="temp"></div>
@@ -37,7 +42,11 @@ async function setHistory(par){
             <div class="temp"></div>
         </div>
         `
+        
+        place.innerHTML = message
+        return
     }
+
     HISTORY.forEach(element => {
         let date = new Date(element.time)
         if (!passDay(par,element.time)) return

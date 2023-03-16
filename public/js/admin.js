@@ -2,6 +2,7 @@ let deleteDiv = document.querySelector(".delete-dealer")
 let bgBlock = document.querySelector(".background-block")
 let chargeDiv = document.querySelector(".charge-dealer")
 let tableBody = document.querySelector("tbody")
+let gif = document.querySelector("#waiting-gif")
 
 async function deleteDealer(bool,id = "",name = "") {
     if(bool == false){
@@ -16,9 +17,9 @@ async function deleteDealer(bool,id = "",name = "") {
     let button = document.querySelector(".delete-dealer button")
     message.innerHTML = `are you sure you want to delete ${name} ?`
     button.addEventListener("click",async ()=>{
-        await deleteIt(id)
-        bgBlock.style.display = "none"
+        gif.style.display = "block"
         deleteDiv.style.display = "none"
+        await deleteIt(id)
         var new_element = button.cloneNode(true);
         button.parentNode.replaceChild(new_element, button);
         button = new_element
@@ -50,9 +51,9 @@ function chargeDealer(bool,id,name) {
     let button = document.querySelector(".charge-dealer button")
     button.addEventListener("click",async ()=>{
         let value = document.querySelector(".charge-dealer #amount").value
-        await chargeIt(id,value)
-        bgBlock.style.display = "none"
         chargeDiv.style.display = "none" 
+        gif.style.display = "block"
+        await chargeIt(id,value)
         var new_element = button.cloneNode(true);
         button.parentNode.replaceChild(new_element, button);
         button = new_element
@@ -102,8 +103,8 @@ async function setRate(){
         return
     }
     rateLabel.innerHTML = ""
-    await sendRate(rateVal)
     showRate(false)
+    await sendRate(rateVal)
 }
 
 async function sendRate(rate = 1){
@@ -127,10 +128,21 @@ async function getDealers(){
 
 async function displayTable(){
     makeTable(await getDealers())
+    bgBlock.style.display = "none"
+    gif.style.display = "none"
+
+
 }
 
 function makeTable(allDealers){
     tableBody.innerHTML = ""
+    if(allDealers.length < 1){
+        tableBody.innerHTML = `
+        <tr>
+            <td colspan="6" class="text-center">Nothing Found</td>
+        </tr>`
+        return
+    }
     allDealers.forEach((element,i) => {
         
         tableBody.innerHTML += `

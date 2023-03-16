@@ -23,8 +23,8 @@ const dealerScema = new mongoose.Schema({
         default : [0]
     },
     history:{
-        type:[Object],
-        default:[Object]
+        type:[],
+        default:[]
     },
     createdAt : {
         type:Date,

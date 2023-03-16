@@ -51,6 +51,13 @@ main .right-top button{
 
 }
 
+#waiting-gif{
+    position: absolute;
+    left: 40%;
+    top:20%;
+    display: none;
+}
+
 .delete-dealer .message , .charge-dealer .message,.setRate .message{
     display: flex;
     justify-content: center;
