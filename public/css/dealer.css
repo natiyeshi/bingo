@@ -1,5 +1,5 @@
 :root{
-    --primary-color:#232525;
+    --primary-color:#0F212E;
     --secondary-color:#004F68;
 }
 
@@ -35,7 +35,7 @@ nav{
     background-color: var(--primary-color);
     color: white;
     display: grid;
-    grid-template-columns: 30% 50% 20%;
+    grid-template-columns: 30% 40% 30%;
     align-items: center;
 }
 
@@ -66,7 +66,7 @@ nav .circle:nth-child(2n + 1){
 }
 
 nav .header{
-    
+    text-align: center;
 }
 
 nav .links{
@@ -74,10 +74,9 @@ nav .links{
     justify-content: space-evenly;
     cursor: pointer;
     color: rgb(207, 207, 207);
-
 }
 
-.links .profile:hover,.links .logout:hover{
+.links div:hover{
     color: white;
 }
 
@@ -108,11 +107,12 @@ main .left{
 .left .message .last{
     width: 25%;
     height: 70px;
-    background: rgb(126, 109, 109);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: larger;
+    font-weight: bold;
+    border: 1px solid white;
 }
 
 .left .generator{
@@ -137,13 +137,18 @@ main .left{
     height: 100%;
     background-color: white;
     border-radius: 50%;
-    border: .6em solid var(--primary-color);
+    border: .6em solid #1B60B0;
     color: black;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: x-large;
     font-weight: bolder;
+}
+
+.buttons .start{
+    background-color: #1B60B0;
+    color:white;
 }
 
 #currentValue {
@@ -161,7 +166,7 @@ main .left{
         border: .6em solid #ffffff;
     }
     to{
-        border: 2em solid var(--primary-color);
+        border: 2em solid #1B60B0;
     }
 }
 
@@ -369,8 +374,6 @@ main .row .col{
 .see-profile .message strong,.see-profile .message span{
     width: 100%;
 }
-
-
 
 i{
     cursor: pointer;

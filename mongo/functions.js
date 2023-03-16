@@ -46,17 +46,35 @@ async function chargeDealer(_id,balance){
     await dealerModel.updateOne({_id},{$set:{balance}})
 } 
 
-
 async function changePasswordAdmin(_id,password){
     await adminModel.updateOne({_id},{$set:{password}})
     return await adminModel.find({_id})    
 }
 
+async function setRate(_id,rate){
+    await adminModel.updateOne({_id},{$set:{rate}})
+}
+
+async function getRate(_id){
+    let result = await adminModel.findOne({username:"admin"})
+    return result.rate
+}
+
+async function setHistory(_id,totalBet,winner,betGain){
+    let history = {totalBet,winner,betGain,time:Date.now()}
+    await dealerModel.updateOne({_id},{$push:{history}})
+}
+
+async function getHistory(_id){
+    let result = await dealerModel.findOne({_id},{history:1})
+    return result
+}
 
 
-module.exports = {
+module.exports = { 
         dealerLogin,getBalance,setBalance,
         getAllFiles,adminLogin,addDealer,
         getAllDealers,deleteDealer,chargeDealer,
-        changePasswordAdmin
+        changePasswordAdmin,setRate,getRate,
+        setHistory,getHistory
     } 

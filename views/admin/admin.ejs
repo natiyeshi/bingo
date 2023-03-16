@@ -28,6 +28,7 @@
                 <div class="mid-links active" onclick="location.href='/admin'"> <i class="bi bi-house-fill"></i> home</div>
                 <div class="mid-links" onclick="location.href='/admin/addDealer'"><i class="bi bi-person-plus-fill"></i> add dealer</div>
                 <div class="mid-links" onclick="location.href='/admin/editProfile'"><i class="bi bi-pencil-square"></i>edit profile</div>
+                <div class="mid-links" onclick="showRate(true)"><i class="bi bi-hexagon-fill"></i>set rate</div>
                 <div class="mid-links" onclick="location.href='/admin/logout'"><i class="bi bi-box-arrow-in-right"></i>log out</div>
 
             </div>
@@ -82,6 +83,22 @@
     </main>
 
     <div class="background-block"></div>
+    
+    <div class="setRate">
+        <div class="top">
+            <h4>set rate</h4>
+            <i onclick="showRate(false)" class="bi bi-x fa-2x"></i>
+        </div>
+        <div class="message">
+            <label for="">rate in percent</label>
+            <input type="number" id="amount">
+            <div class="error"></div>
+
+        </div>
+        <button onclick="setRate()">set</button>
+        
+    </div>
+
     <div class="delete-dealer">
         <div class="top">
             <h4>Delete</h4>

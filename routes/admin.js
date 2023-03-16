@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router()
 
-//functions
-let {getBalance,setBalance,chargeDealer,changePasswordAdmin,addDealer,getAllDealers,deleteDealer} = require("../mongo/functions")
+//functions 
+let {getRate,setRate,chargeDealer,
+    changePasswordAdmin,addDealer,
+    getAllDealers,deleteDealer
+} = require("../mongo/functions")
 
 
 router.get("/",(req,res)=>res.render("admin/admin"))
@@ -57,12 +60,24 @@ router.post("/createDealer",(req,res)=>{
 router.post("/getAllDealers",async (req,res)=>{
     let data = await getAllDealers()
     res.send(data)
-})
+}) 
 
 router.post("/deleteDealer",async (req,res)=>{
     await deleteDealer(req.body.id)
     res.sendStatus(200)
+}) 
+
+router.post("/setRate",async (req,res)=>{
+    await setRate(req.session.data._id,req.body.rate)
+    res.send("Ok")
 })
+
+router.post("/getRate",async (req,res)=>{
+    let rate = await getRate(req.session.data._id)
+    console.log(rate,"-r-")
+    res.send(rate) 
+})
+
 
 router.post("/chargeDealer",async (req,res)=>{
     balance = 0

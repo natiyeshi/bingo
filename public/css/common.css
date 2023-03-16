@@ -1,13 +1,20 @@
 :root{
-    --primary-color:#014459;
-    --secondary-color:#004F68;
+    --primary-color:#0F212E;
+    --secondary-color:#2c4a5f;
 }
 
 body{
     user-select: none;
     background-color: rgb(248, 248, 248);
 }
- 
+
+.primary{
+    background: #0F212E;
+}
+.secondary{
+    background-color: #2c4a5f;
+}
+
 button,input{
     all:unset;
     border: 1px solid rgb(150, 150, 150);
@@ -54,7 +61,7 @@ main .left-mid{
 
 main .mid-links{
     width: 100%;
-    background-color: var(--secondary-color);
+    background-color: #253b4b;
     padding: 1em;
     cursor: pointer;
     display: flex;
@@ -66,7 +73,7 @@ main .mid-links i{
 }
 
 main .mid-links:hover{
-    background-color: #02617e;
+    background-color: #2c4a5f;
 }
 
 .active{

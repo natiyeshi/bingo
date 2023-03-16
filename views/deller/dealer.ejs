@@ -5,15 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bingo Welcome</title>
-      <!-- font awsome -->
+    <!-- font awsome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <!-- mycss -->
     <link rel="stylesheet" href="../css/dealer.css">
-</head>
+</head> 
 <body>
     <script>
         const BALANCE = "<%- balance%>"
@@ -33,6 +32,8 @@
         </h2>
         <div class="links">
             <div class="profile" onclick="showProfile(true)">Profile</div>
+            <div class="" onclick="location.href = '/dealer/profile'">hisotry</div>
+            <div class="" onclick="fullScreen(this)">Full screen</div>
             <div class="logout" onclick="showLogout(true)">Logout</div>
         </div>
     </nav>
@@ -48,9 +49,9 @@
                 
             </div>
             <div class="message">
-                <div class="last last3">a</div>
-                <div class="last last2">b</div>
-                <div class="last last1">c</div>
+                <div class="last last3">.</div>
+                <div class="last last2">.</div>
+                <div class="last last1">.</div>
             </div>
             <div class="buttons">
                 <button class="start" onclick="start()">start</button>
@@ -86,9 +87,10 @@
         </div>
 
     </main>
-    <div class="background-block" style="display:none;"></div>
+
+    <div class="background-block"></div>
  
-    <div class="bet-here" style="display: none;">
+    <div class="bet-here">
         <div class="top">
             <h2 class="top-topic">Bet Here</h2>
         </div>
@@ -116,7 +118,7 @@
         </div>
 
         <div class="logout-message">Are you sure ?</div>
-        <button class="button" onclick="location.href='/dealer/logout'">logout</button>
+        <button class="button" onclick="logout()">logout</button>
     </div> 
 
     <div class="see-profile">

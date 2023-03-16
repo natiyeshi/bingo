@@ -1,0 +1,213 @@
+:root{
+    --primary-color:#0F212E;
+    --secondary-color:#004F68;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+ 
+:target {
+    scroll-margin-top: 10em;
+}
+
+body{
+    user-select: none;
+    background-color: rgb(248, 248, 248);
+}
+
+button,input{
+    all:unset;
+    border: 1px solid rgb(150, 150, 150);
+    background: rgb(255, 255, 255);
+}
+button{
+    text-align: center;
+}
+button:focus,input:focus{
+    border: 1px solid rgb(102, 101, 101);
+}
+
+nav{
+    width: 100%;
+    display: flex;
+    height: 13vh;
+    background-color: var(--primary-color);
+    color: white;
+    display: grid;
+    grid-template-columns: 30% 50% 20%;
+    align-items: center;
+}
+
+nav .circles{
+    display: flex;
+    margin-left: 1em;
+    justify-content: center;
+    gap: .5em;
+}
+
+nav .circle{
+    background-color: white;
+    color: black;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bolder;
+    font-size: larger;
+}
+nav .circle:nth-child(2n){
+    transform: rotate(30deg);
+}
+nav .circle:nth-child(2n + 1){
+    transform: rotate(-30deg);
+}
+
+nav .header{
+    text-align: center;
+}
+
+nav .links{
+    display: flex;
+    justify-content: space-evenly;
+    cursor: pointer;
+    color: rgb(207, 207, 207);
+
+}
+
+.links .profile:hover,.links .logout:hover{
+    color: white;
+}
+
+
+main{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4em;
+
+}
+
+main .games{
+    display: flex;
+    width: 90%;
+    background-color: var(--primary-color);
+    flex-direction: column;
+    /* max-height: 70vh; */
+    color: white;
+    padding-bottom: 1em;
+    margin-bottom: 3em;
+}
+
+.games .head{
+    padding: .7em;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 50% 50%;
+    font-size: larger;
+}
+
+.games .head-right{
+    display: flex;
+    justify-content: end;
+    margin-right: 1em;
+}
+
+select{
+    width: fit-content;
+    height: fit-content;
+    text-transform: capitalize;
+}
+
+.games .middle{
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(2,1fr);
+    /* overflow-y: scroll;
+    height: 100%; */
+    
+}
+
+.games .message{
+    width: 100%;
+    background-color: #1d3546;
+    height: 100px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+.games .message:nth-child(2n + 1){
+    border-radius: 0 .5em .5em 0;
+}
+.games .message:nth-child(2n){
+    border-radius:  .5em 0 0 .5em;
+}
+
+.games .message .temp{
+    font-size: large;
+}
+.games .message .temp:first-child{
+    opacity: .8;
+}
+
+
+
+.background-block{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(0, 0, 0);
+    opacity: .8;
+    display: none;
+}
+
+
+.logout-div .logout-message, .logout-div button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.logout-div .top{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 85% 15%;
+    background: var(--primary-color);
+    color:white;
+    justify-content: center;
+    place-items: center;
+    border-radius: .2em .2em 0 0;
+}
+
+
+.logout-div{
+    position: fixed;
+    border-radius: .3em;
+    top: 20%;
+    left: 34%;
+    width: 30%;
+    height: 40vh;
+    background-color: white;
+    display: none;
+    grid-template-rows: 20% 65% 15%;
+}
+
+.logout-div button{
+    width: 30%;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    padding: .3em;
+    border-radius: .3em;
+    background-color: brown;
+    color: white;
+}
+

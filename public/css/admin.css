@@ -27,7 +27,7 @@ main .right-top button{
     border-left: none;
 }
 
-.delete-dealer, .charge-dealer{
+.delete-dealer, .charge-dealer, .setRate{
     position: fixed;
     border-radius: .3em;
     top: 20%;
@@ -39,7 +39,7 @@ main .right-top button{
     grid-template-rows: 25% 50% 25%;
 }
 
-.delete-dealer .top,.charge-dealer .top{
+.delete-dealer .top,.charge-dealer .top,.setRate .top{
     width: 100%;
     display: grid;
     grid-template-columns: 85% 15%;
@@ -51,13 +51,13 @@ main .right-top button{
 
 }
 
-.delete-dealer .message , .charge-dealer .message{
+.delete-dealer .message , .charge-dealer .message,.setRate .message{
     display: flex;
     justify-content: center;
     align-items: center;
     text-transform: capitalize;
 }
-.delete-dealer button , .charge-dealer button{
+.delete-dealer button , .charge-dealer button,.setRate button{
     display: flex;
     justify-self: center;
     align-items: center;
@@ -73,18 +73,18 @@ main .right-top button{
 .delete-dealer button:hover{
     background: rgb(141, 33, 33);
 }
-.charge-dealer .message{
+.setRate .message,.charge-dealer .message{
     gap: 1em;
 }
 
-.charge-dealer input{
+.setRate input,.charge-dealer input{
     width: 50px;
 }
 
-.charge-dealer button{
+.setRate button,.charge-dealer button{
     background: rgb(64, 128, 0);
 }
-.charge-dealer button:hover{
+.setRate button:hover,.charge-dealer button:hover{
     background: rgb(56, 110, 1);
 }
 

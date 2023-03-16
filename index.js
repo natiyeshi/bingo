@@ -77,12 +77,13 @@ app.post("/login",async (req,res)=>{
         passError = "Incorrect password"
         return res.render("deller/login.ejs",{userError,passError,username,password})
     }
+    // req.session.destroy()
     req.session.data = checker.data
     req.session.loged = true
     res.redirect("dealer")
 })
 
-app.get("/login/admin",async (req,res)=>{
+app.get("/login/admin",isAdminNotIn,async (req,res)=>{
     res.render("admin/login")
 })
 
@@ -107,10 +108,15 @@ app.post("/login/admin",isAdminNotIn,async (req,res)=>{
         passError = "Incorrect password"
         return res.render("admin/login.ejs",{userError,passError,username,password})
     }
+    // req.session.destroy()
     req.session.data = checker.data
     req.session.admin = true
     res.redirect("/admin")
-    
+      
+})
+
+app.get("*",(req,res)=>{
+    res.redirect("/")
 })
 
 app.listen(port,()=>{

@@ -1,4 +1,11 @@
+
+if(localStorage.getItem("played") == 1){
+    document.querySelector(".background-block").style.display = "none"
+    document.querySelector(".bet-here").style.display = "none"
+}
+
 let columns = document.querySelector(".result")
+
 function fillColumn() {
     columns.innerHTML = ""
     for(i = 0; i < 80; i++){
@@ -45,23 +52,19 @@ async function getBalance(){
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       })
-            
     return  await data.text()
 }
   
 
-function setBalance(balance){
-    let xml = new XMLHttpRequest()
-    xml.open("post","/dealer/setBalance")
-    xml.setRequestHeader("Accept", "application/json");
-    xml.setRequestHeader("Content-Type", "application/json");
-    
-    let data = `{
-        "balance": `+balance+`
-    }`;
-    xml.send(data)
+async function setBalance(balance,totalBet,winner){
+    await fetch('/dealer/setBalance', {
+        method: 'POST', 
+        body: JSON.stringify({balance,totalBet,winner}), 
+        headers: {'Content-type': 'application/json; charset=UTF-8'}
+    })
+
 }
-// setBalance(10)
+
 
 async function getAllData(){
     let data = await fetch("/dealer/getAllData",{
@@ -73,6 +76,19 @@ async function getAllData(){
 }
 
 
+let RATE = 1
+async function getRate(){
+
+    let result = await fetch("/dealer/getRate",{
+            method:"post",
+        })
+    let res = await result.json()
+    RATE = parseInt(res)
+    console.log(RATE)
+    return RATE
+}
+
+getRate()
 
 let intervalId
 let betMessage = document.querySelector("#bet-message")
@@ -98,18 +114,24 @@ let bc = ic = nc = gc = oc = 0
 setBetMessage()
 let jump = true
 
-function pause(){
+function pause(temp){
     jump = !jump
-    if(!jump) currentValue.classList.remove("circleIt")
-    else currentValue.classList.add("circleIt")
-    
+    if(!jump) {
+        currentValue.classList.remove("circleIt")
+        temp.innerHTML = "resume"
+        return
+    }
+    currentValue.classList.add("circleIt")
+    temp.innerHTML = "pause"
+
 }
 
 function start() {
+    localStorage.setItem("played",0)
     setBetMessage()
     buttons.innerHTML = `
-    <button class="start bg-success  text-white" onclick="beingo()">beingo</button>
-    <button class="start bg-danger  text-white" onclick="pause()" >pause</button>
+    <button class="bg-success  text-white" onclick="bingo()">bingo</button>
+    <button class="bg-transparent text-white" onclick="pause(this)" >pause</button>
     `
     let getShuffledFile = shuffle()
     currentValue.classList.add("circleIt")
@@ -162,16 +184,18 @@ function setPreviouseValue(value){
 }
 
 
-function beingo() {
+async function bingo() {
+    localStorage.setItem("played",0)
     preValues = []
     jump = true
+    document.querySelector("#currentValue").innerHTML = "..."
     for(i = 1; i < 4; i++){
         document.querySelector(".last"+i).innerHTML = "..."
     }
     clearInterval(intervalId)
     currentValue.classList.remove("circleIt")
     buttons.innerHTML = `<button class="start bg-primary  text-white" onclick="restart()">Restart</button>`
-
+    await getRate()
 }
 
 function restart() {
@@ -218,34 +242,39 @@ async function placeBet(button) {
         amountLabel.classList.remove("text-danger")
     }
     if(pass == false) return
-    let percentage = (amount * numOfPlayers) * 0.2
-   
+    let totalBet = amount * numOfPlayers
+    let percentage = (totalBet) * (RATE / 100)
+    percentage = Math.floor(percentage * 100) / 100
+    let winner = totalBet - percentage
     if (percentage > balance){
         betMessage.innerHTML = "your balance is insufficient !! <a href='/dealer/logout' class='pl-3'>logout</a>"
         betMessage.classList.add("text-danger")
         return
     } 
-    setBalance(balance - percentage)    
+    setBalance(balance - percentage,totalBet,winner)    
     bgBlock.style.display = "none"
     betHere.style.display = "none"
+    localStorage.setItem("played",1)
 }
 
 
 async function showProfile(bool) {
-    let data = await getAllData()
-    document.querySelector("#profileFile").innerHTML = `      
-        <span>Username <strong>${data.username}</strong></span>
-        <span>Balance <strong> ${data.balance} birr</strong></span>
-    `
     if(bool){
         bgBlock.style.display = "block"
         document.querySelector(".see-profile").style.display = "grid"
+        let data = await getAllData()
+        document.querySelector("#profileFile").innerHTML = `      
+            <span>Username <strong>${data.username}</strong></span>
+            <span>Balance <strong> ${data.balance} birr</strong></span>
+        `
+        
         return
     }
     bgBlock.style.display = "none"
     document.querySelector(".see-profile").style.display = "none"
     
 }
+
 
 function showLogout(bool) {
     if(bool){
@@ -256,4 +285,42 @@ function showLogout(bool) {
     bgBlock.style.display = "none"
     document.querySelector(".logout-div").style.display = "none"
 }
+function logout() {
+    location.href='/dealer/logout'
+}
 
+/* Get the documentElement (<html>) to display the page in fullscreen */
+var elem = document.documentElement;
+
+/* View in fullscreen */
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+}
+
+/* Close fullscreen */
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) { /* Safari */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE11 */
+    document.msExitFullscreen();
+  }
+}
+let bool = false
+function fullScreen(self){
+    if(!bool){
+        self.innerHTML = "back to old"
+        openFullscreen()
+    } else{ 
+        self.innerHTML = "Full Screen"
+        closeFullscreen()
+    }
+    bool = !bool
+}

@@ -38,6 +38,7 @@ async function deleteIt(id){
 }
 
 function chargeDealer(bool,id,name) {
+    document.querySelector(".charge-dealer #amount").value = ""
     if(bool == false){
         bgBlock.style.display = "none"
         chargeDiv.style.display = "none" 
@@ -69,6 +70,51 @@ async function chargeIt(id,balance){
     displayTable()
 }
 
+let RATE = 1
+async function getRate(){
+    let result = await fetch("/admin/getRate",{
+            method:"post",
+        })
+    let res = await result.json()
+    RATE = res
+    return res
+}
+getRate()
+let rateInput = document.querySelector(".setRate #amount")
+async function showRate(bool){
+    rateInput.value = RATE
+    if(bool){
+        bgBlock.style.display = "block"
+        document.querySelector(".setRate").style.display = "grid"
+        return
+    }
+    bgBlock.style.display = "none"
+    document.querySelector(".setRate").style.display = "none"
+    
+}
+
+async function setRate(){
+    let rate = document.querySelector(".setRate #amount")
+    let rateLabel = document.querySelector(".setRate .error")
+    let rateVal = rate.value
+    if( rateVal < 1 || rateVal > 99){
+        rateLabel.innerHTML = "invalid number"
+        return
+    }
+    rateLabel.innerHTML = ""
+    await sendRate(rateVal)
+    showRate(false)
+}
+
+async function sendRate(rate = 1){
+    await fetch('/admin/setRate', {
+        method: 'POST', 
+        body: JSON.stringify({rate}), 
+        headers: {'Content-type': 'application/json; charset=UTF-8'}
+    })
+    RATE = rate
+}
+
 
 async function getDealers(){
     let data = await fetch("/admin/getAllDealers",{
@@ -94,7 +140,7 @@ function makeTable(allDealers){
             <td>${element.password}</td>
             <td>${element.balance}</td>
             <td class="bg-danger pointer text-white" onclick="deleteDealer(true,'${element._id}','${element.username}')">Delete</td>
-            <td class="bg-primary pointer text-white" onclick="chargeDealer(true,'${element._id}','${element.username}')">Charge</td>
+            <td class="secondary pointer text-white" onclick="chargeDealer(true,'${element._id}','${element.username}')">Charge</td>
         </tr>`
     });
 }
