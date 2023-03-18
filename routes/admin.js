@@ -4,7 +4,7 @@ const router = express.Router()
 //functions 
 let {getRate,setRate,chargeDealer,
     changePasswordAdmin,addDealer,
-    getAllDealers,deleteDealer
+    getAllDealers,deleteDealer,isUsernameExist
 } = require("../mongo/functions")
 
 
@@ -13,7 +13,7 @@ router.get("/home",(req,res)=>res.render("admin/admin"))
 router.get("/addDealer",(req,res)=>res.render("admin/addDeller"))
 router.get("/editProfile",(req,res)=>res.render("admin/editProfile"))
 
-router.post("/createDealer",(req,res)=>{
+router.post("/createDealer",async (req,res)=>{
     let {username,password,confirm,amount} = req.body
     let pass = true
     let userError = passError = confirmError = ""
@@ -47,6 +47,11 @@ router.post("/createDealer",(req,res)=>{
     if(confirm.trim() != password.trim()){
         pass = false
         confirmError = " password does not match"
+    }
+    let userExist = await isUsernameExist(username) 
+    if(userExist){
+        pass = false
+        userError = " Sorry this username is taken"
     }
     if(!pass){
         return res.render("admin/addDeller.ejs",{userError,passError,confirmError,username,amount})

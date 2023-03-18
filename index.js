@@ -24,13 +24,12 @@ const dealerRouter = require("./routes/dealer")
 //db connections
 const { dealerLogin,adminLogin } = require("./mongo/functions")
  
-// app.use(express.json()) 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-// const url = "mongodb://127.0.0.1:27017/bingo"
-const url = "mongodb+srv://natiyeshimongo:natiyeshimongo@cluster0.aliussy.mongodb.net/bingo"
-
+const url = "mongodb://127.0.0.1:27017/bingo"
+// const url = "mongodb+srv://natiyeshimongo:natiyeshimongo@cluster0.aliussy.mongodb.net/bingo"
+ 
 //sessions
 app.use(session({
     secret:"fdasddfadsfas", 

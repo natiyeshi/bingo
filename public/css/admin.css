@@ -1,4 +1,15 @@
 
+.right-mind::-webkit-scrollbar {
+    width: 7px;               /* width of the entire scrollbar */
+}
+.right-mind::-webkit-scrollbar-track {
+    background-color: white;    /* color of the scroll thumb */
+}
+.right-mind::-webkit-scrollbar-thumb {
+    background: rgb(0, 0, 0);        /* color of the tracking area */
+    border-radius: 10px;       /* roundness of the scroll thumb */
+}
+
 main .right{
     display: grid;
     grid-template-rows: 20% 80%;
@@ -27,6 +38,10 @@ main .right-top button{
     border-left: none;
 }
 
+main .right-mind{
+    overflow-y: scroll;
+}
+
 .delete-dealer, .charge-dealer, .setRate{
     position: fixed;
     border-radius: .3em;
@@ -50,6 +65,7 @@ main .right-top button{
     border-radius: .2em .2em 0 0;
 
 }
+
 
 #waiting-gif{
     position: absolute;

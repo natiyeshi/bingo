@@ -71,10 +71,15 @@ async function getHistory(_id){
 }
 
 
+async function isUsernameExist(username){
+    let result = await dealerModel.find({username})
+    return result.length > 0
+}
+
 module.exports = { 
         dealerLogin,getBalance,setBalance,
         getAllFiles,adminLogin,addDealer,
         getAllDealers,deleteDealer,chargeDealer,
         changePasswordAdmin,setRate,getRate,
-        setHistory,getHistory
+        setHistory,getHistory,isUsernameExist
     } 
