@@ -70,32 +70,54 @@ nav .circle{
     font-weight: bolder;
     font-size: larger;
 }
+
 nav .circle:nth-child(2n){
-    animation: rotaten 4s infinite alternate ease-in-out;
+    color: white;
+    animation: rotaten 4s infinite 5s alternate ease-in-out;
 }
 nav .circle:nth-child(2n + 1){
-    animation: rotate2n 4s infinite alternate ease-in-out;
+    color: white;
+    animation: rotate2n 4s infinite 5s alternate ease-in-out;
 }
+
+nav .circle:nth-child(1){
+    background-color: brown;
+}
+nav .circle:nth-child(2){
+    background-color: green;
+}
+nav .circle:nth-child(3){
+    background-color: rgb(0, 102, 255);
+}
+nav .circle:nth-child(4){
+    background-color: #270034;
+}
+nav .circle:nth-child(5){
+    background-color: #AF0093;
+}
+
 
 @keyframes rotaten {
     from{
         transform: rotate(360deg);
+        
     }
     to{
         transform: rotate(0deg);
-        background-color: rgb(155, 1, 1);
-        color: white;
+        background-color: rgb(255, 255, 255);
+        color: black;        
     }
 }
 
 @keyframes rotate2n {
     from{
         transform: rotate(0deg);
+
     }
     to{
         transform: rotate(360deg);
-        color: white;
-        background-color: #1B60B0;
+        color: black;
+        background-color: #ffffff;
     }
 }
 
@@ -229,6 +251,7 @@ main .bingo{
     background-color: white;
     justify-content: space-evenly;
     border-top: .4em solid white;
+    padding-bottom: .4em;
 
 }
 
@@ -266,7 +289,7 @@ main .result{
     display: grid;
     grid-template-rows: auto;
     padding-right: 1em;
-    padding-left: 0em;
+    padding-left: 1em;
     padding-top: .6em;
 
 
@@ -298,7 +321,7 @@ main .row .col{
 @keyframes borderChange {
    
     to{
-        border: 3px solid rgb(134, 0, 0); 
+        border: 3px solid #1B60B0; 
     }
    
   
@@ -329,7 +352,8 @@ main .row .col{
     background-color: white;
     display: grid;
     grid-template-rows: 15% 70% 15%;
-    z-index: 4;
+    z-index: 5;
+
 }
 
 .bet-here .top,.logout-div .top,.see-profile .top{
@@ -341,7 +365,6 @@ main .row .col{
     justify-content: center;
     place-items: center;
     border-radius: .2em .2em 0 0;
-    z-index: 4;
 
 }
 
@@ -388,6 +411,8 @@ main .row .col{
     background-color: white;
     display: none;
     grid-template-rows: 20% 65% 15%;
+    z-index: 4;
+
 }
 
 .logout-div button{
@@ -412,6 +437,7 @@ main .row .col{
     background-color: white;
     display: none;
     grid-template-rows: 20% 85%; 
+    z-index: 4;
 }
 
 .see-profile .message{
