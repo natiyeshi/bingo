@@ -4,8 +4,9 @@ const bodyParser = require('body-parser');
 
 const session = require('express-session');
 const MongoStore = require("connect-mongo")
-
-const app = express()
+require('dotenv').config();
+ 
+const app = express()  
 const port = process.env.PORT | 4000 
 
 app.set("view engine","ejs") 
@@ -27,8 +28,8 @@ const { dealerLogin,adminLogin } = require("./mongo/functions")
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-// const url = "mongodb://127.0.0.1:27017/bingo"
-const url = "mongodb+srv://natiyeshimongo:natiyeshimongo@cluster0.aliussy.mongodb.net/bingo"
+// const url = process.env.DB_URL_LOCAL
+const url = process.env.DB_URL
  
 //sessions
 app.use(session({
