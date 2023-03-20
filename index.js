@@ -15,11 +15,11 @@ app.use("/css",express.static(__dirname+"public/css"))
 app.use("/js",express.static(__dirname+"public/js"))
 app.use("/img",express.static(__dirname+"public/img"))
 
-
+ 
 //middlewares
 const {isDealerIn,isDealerNotIn,isAdminIn,isAdminNotIn} = require("./mongo/middleware") 
 
-// routers
+// routers 
 const adminRouter = require("./routes/admin")
 const dealerRouter = require("./routes/dealer")
 //db connections
@@ -29,8 +29,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // const url = process.env.DB_URL_LOCAL
-const url = process.env.DB_URL
- 
+// const url = process.env.DB_URL
+const url = "mongodb+srv://natiyeshimongo:natiyeshimongo@cluster0.aliussy.mongodb.net/bingo"
 //sessions
 app.use(session({
     secret:"fdasddfadsfas", 
