@@ -29,8 +29,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // const url = process.env.DB_URL_LOCAL
-// const url = process.env.DB_URL
-const url = "mongodb+srv://natiyeshimongo:natiyeshimongo@cluster0.aliussy.mongodb.net/bingo"
+const url = process.env.DB_URL
+// const url = "mongodb+srv://natiyeshimongo:natiyeshimongo@cluster0.aliussy.mongodb.net/bingo"
 //sessions
 app.use(session({
     secret:"fdasddfadsfas", 

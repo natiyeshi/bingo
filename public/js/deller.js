@@ -126,6 +126,11 @@ function pause(temp){
 
 }
 
+let audios = {}
+for(let i = 1; i < 81;i++) {
+    audios["b"+i] = new Audio("../img/audio/B/B"+i+".mp3")
+}
+console.log(audios)
 function start() {
     localStorage.setItem("played",0)
     setBetMessage()
@@ -134,6 +139,7 @@ function start() {
     <button class="bg-transparent text-white" onclick="pause(this)" >pause</button>
     `
     let getShuffledFile = shuffle()
+    
     currentValue.classList.add("circleIt")
     let counter = 0
     intervalId = setInterval(() => {
@@ -141,6 +147,7 @@ function start() {
             return
         }
         let item = getShuffledFile[counter++]
+        audios["b"+item.slice(2)].play()
         if(item[0] == "b"){
             bcol[bc].innerHTML = item
             location.href = "#"+bcol[bc].id
@@ -168,7 +175,7 @@ function start() {
         }
         currentValue.innerHTML = item
         setPreviouseValue(item)
-    }, 3000);
+    }, 7000);
 }
 let preValues = []
 function setPreviouseValue(value){
@@ -196,6 +203,9 @@ async function bingo() {
     currentValue.classList.remove("circleIt")
     buttons.innerHTML = `<button class="start bg-primary  text-white" onclick="restart()">Restart</button>`
     await getRate()
+    for(let i = 1; i < 81;i++) {
+        audios["b"+i].pause()
+    }
 }
 
 function restart() {
