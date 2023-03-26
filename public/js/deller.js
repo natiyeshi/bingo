@@ -7,6 +7,9 @@ const CTX = new AudioContext();
 let All_ADUIOS = { }
 let audio_load =  1
 
+document.querySelector(".background-block").style.display = "none"
+document.querySelector(".bet-here").style.display = "none"
+
 function load(){
         let arr = ["B/B","G/G","I/i","N/N","0/0"]
         for(let i = 0;i < 5;i++){
@@ -25,6 +28,13 @@ function load(){
                         if(audio_load == 400){
                             audio_block.style.display = "none"
                             audioDiv.style.display = "none"
+                            if(localStorage.getItem("played") == 1){
+                                document.querySelector(".background-block").style.display = "none"
+                                document.querySelector(".bet-here").style.display = "none"
+                            }else{
+                                document.querySelector(".background-block").style.display = "block"
+                                document.querySelector(".bet-here").style.display = "grid"
+                            }
                         }
                     })
                     .catch(err =>{
@@ -60,11 +70,7 @@ function checkAudioLoad() {
     audioDiv.style.display = "flex"    
 }
 
-
-if(localStorage.getItem("played") == 1){
-    document.querySelector(".background-block").style.display = "none"
-    document.querySelector(".bet-here").style.display = "none"
-}
+checkAudioLoad()
 
 let columns = document.querySelector(".result")
 
@@ -154,6 +160,7 @@ getRate()
 
 let intervalId
 let betMessage = document.querySelector("#bet-message")
+let waitingGif = document.querySelector("#waiting-gif")
 let buttons = document.querySelector(".buttons")
 let currentValue = document.querySelector("#currentValue")
 let bcol = document.querySelectorAll(".b-box")
@@ -288,7 +295,6 @@ function restart() {
 
 
 async function placeBet(button) {
-    let balance = await getBalance()
     let betHere = document.querySelector(".bet-here")
     let betMessage = document.querySelector("#bet-message")
     let numOfPlayers = document.querySelector("#num_players").value.trim()
@@ -314,19 +320,23 @@ async function placeBet(button) {
         amountLabel.classList.remove("text-danger")
     }
     if(pass == false) return
+    betHere.style.display = "none"
+    waitingGif.style.display = "block"
+    let balance = await getBalance()
     let totalBet = amount * numOfPlayers
     let percentage = (totalBet) * (RATE / 100)
     percentage = Math.floor(percentage * 100) / 100
     let winner = totalBet - percentage
     if (percentage > balance){
+        waitingGif.style.display = "none"
         betMessage.innerHTML = "your balance is insufficient !! <a href='/dealer/logout' class='pl-3'>logout</a>"
         betMessage.classList.add("text-danger")
         return
     } 
+
     setBalance(balance - percentage,totalBet,winner)
-    
+    waitingGif.style.display = "none"
     bgBlock.style.display = "none"
-    betHere.style.display = "none"
     localStorage.setItem("played",1)
     checkAudioLoad()
 }

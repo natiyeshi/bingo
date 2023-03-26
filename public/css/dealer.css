@@ -340,9 +340,6 @@ main .row .col{
     opacity: .8;
     z-index: 2;
 }
-.audio-block{
-    display: none;
-}
 
 .bet-here{
     position: fixed;
@@ -449,14 +446,17 @@ main .row .col{
     left: 15%;
     width: 70%;
     height: 60vh;
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: .6em;
     z-index: 4;
 }
 
-
+.audio-load p{
+    color: white;
+}
 .audio-load label{
     font-size: 30px; 
     font-weight: bolder;
@@ -488,8 +488,17 @@ progress {
     margin-top: 2em;
     gap: 1em;
     
-    
 }
+
+
+#waiting-gif{
+    position: absolute;
+    left: 40%;
+    top:20%;
+    z-index: 3;
+    display: none;
+}
+
 .see-profile .message strong,.see-profile .message span{
     width: 100%;
 }
