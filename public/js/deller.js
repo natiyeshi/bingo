@@ -328,6 +328,7 @@ async function placeBet(button) {
     percentage = Math.floor(percentage * 100) / 100
     let winner = totalBet - percentage
     if (percentage > balance){
+        betHere.style.display = "grid"
         waitingGif.style.display = "none"
         betMessage.innerHTML = "your balance is insufficient !! <a href='/dealer/logout' class='pl-3'>logout</a>"
         betMessage.classList.add("text-danger")
