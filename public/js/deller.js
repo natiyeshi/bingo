@@ -1,4 +1,66 @@
-// alert(localStorage.getItem("played"))
+let bgBlock = document.querySelector(".background-block")
+let audio_block = document.querySelector(".audio-block")
+let audioDiv = document.querySelector(".audio-load")
+let progress = document.querySelector("#progress")
+
+const CTX = new AudioContext();
+let All_ADUIOS = { }
+let audio_load =  1
+
+function load(){
+        let arr = ["B/B","G/G","I/i","N/N","0/0"]
+        for(let i = 0;i < 5;i++){
+            let st = arr[i]
+            for(let j = 1; j < 81; j++){
+                let curr = st[0]+j
+                let link = "../img/audio/"+st+j+".mp3"
+                fetch(link)
+                    .then(data => data.arrayBuffer())
+                    .then(arrayBuffer => CTX.decodeAudioData(arrayBuffer))
+                    .then(decodedAudio => {
+                        All_ADUIOS[curr] = decodedAudio
+                        audio_load ++
+                        progress.value = audio_load
+                        console.log(audio_load,curr);
+                        if(audio_load == 400){
+                            audio_block.style.display = "none"
+                            audioDiv.style.display = "none"
+                        }
+                    })
+                    .catch(err =>{
+                        console.log(err);
+                    })
+        }
+    }
+}
+
+function playSound(temp) {
+    console.log(temp);
+    var source = CTX.createBufferSource()
+    source.buffer = All_ADUIOS[temp];
+    source.connect(CTX.destination);
+    source.start(0);
+}
+
+
+(()=>{
+    load()
+    if(localStorage.getItem("played") == 1 && audio_load < 399){
+        audio_block.style.display = "block"
+        audioDiv.style.display = "flex"    
+    }
+})()
+
+
+function checkAudioLoad() {
+    if(audio_load > 399){
+        return
+    }
+    audio_block.style.display = "block"
+    audioDiv.style.display = "flex"    
+}
+
+
 if(localStorage.getItem("played") == 1){
     document.querySelector(".background-block").style.display = "none"
     document.querySelector(".bet-here").style.display = "none"
@@ -92,7 +154,6 @@ getRate()
 
 let intervalId
 let betMessage = document.querySelector("#bet-message")
-let bgBlock = document.querySelector(".background-block")
 let buttons = document.querySelector(".buttons")
 let currentValue = document.querySelector("#currentValue")
 let bcol = document.querySelectorAll(".b-box")
@@ -127,10 +188,7 @@ function pause(temp){
 }
 
 let audios = {}
-for(let i = 1; i < 81;i++) {
-    audios["b"+i] = new Audio("../img/audio/B/B"+i+".mp3")
-}
-console.log(audios)
+
 function start() {
     localStorage.setItem("played",0)
     setBetMessage()
@@ -147,7 +205,11 @@ function start() {
             return
         }
         let item = getShuffledFile[counter++]
-        audios["b"+item.slice(2)].play()
+        if(item[0] == "o")
+            playSound("0"+item.slice(2))
+        else
+            playSound((item[0].toUpperCase())+item.slice(2))
+             
         if(item[0] == "b"){
             bcol[bc].innerHTML = item
             location.href = "#"+bcol[bc].id
@@ -203,9 +265,9 @@ async function bingo() {
     currentValue.classList.remove("circleIt")
     buttons.innerHTML = `<button class="start bg-primary  text-white" onclick="restart()">Restart</button>`
     await getRate()
-    for(let i = 1; i < 81;i++) {
-        audios["b"+i].pause()
-    }
+    // for(let i = 1; i < 81;i++) {
+    //     audios["b"+i].pause()
+    // }
 }
 
 function restart() {
@@ -261,10 +323,12 @@ async function placeBet(button) {
         betMessage.classList.add("text-danger")
         return
     } 
-    setBalance(balance - percentage,totalBet,winner)    
+    setBalance(balance - percentage,totalBet,winner)
+    
     bgBlock.style.display = "none"
     betHere.style.display = "none"
     localStorage.setItem("played",1)
+    checkAudioLoad()
 }
 
 
@@ -335,3 +399,4 @@ function fullScreen(self){
     }
     bool = !bool
 }
+

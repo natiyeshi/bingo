@@ -1,0 +1,15 @@
+<button onclick="start()">start</button>
+<script>
+    let audios = {}
+    let ava = 1
+    for(let i = 1; i < 81; i++){
+        audios["B"+i] = new Audio("/public/img/audio/B/B"+i+".mp3")
+        audios["B"+i].preload = "auto"
+        audios["B"+i].addEventListener("canplay",() => console.log(ava++))
+    }
+    
+    
+    function start(){
+        console.log("hiiiii")
+    }
+</script>

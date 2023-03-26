@@ -1,0 +1,53 @@
+<button onclick="playSound()">play</button>
+<p>Loding</p>
+<script>
+    let button = document.querySelector("button")
+    let para = document.querySelector("p")
+    button.style.display = "none"
+    
+    const CTX = new AudioContext();
+
+    let audios = { }
+    let counter =  0
+
+    function load(){
+            let arr = ["B/B","G/G","I/i","N/N","0/0"]
+            for(let i = 0;i < 5;i++){
+                let st = arr[i]
+                console.log(st);
+                for(let j = 1; j < 81; j++){
+                    let curr = st[0]+j
+                    let link = "public/img/audio/"+st+j+".mp3"
+                    fetch(link)
+                        .then(data => data.arrayBuffer())
+                        .then(arrayBuffer => CTX.decodeAudioData(arrayBuffer))
+                        .then(decodedAudio => {
+                            audios[curr] = decodedAudio
+                            counter += 1
+                            console.log(counter,curr);
+                            para.innerHTML = counter
+                            if(counter == 160){
+                                button.style.display = "block"
+                                para.style.display = "none"
+                            }
+                        })
+                        .catch(err =>{
+                            console.log(err);
+                        })
+            }
+        }
+    }
+    load()
+    // load(20,40)  
+    function playSound() {
+        var source = CTX.createBufferSource()
+        source.buffer = audios["079"];
+        console.log(audios);
+        source.connect(CTX.destination);
+        source.start(0);
+    }
+
+
+    
+        
+</script>

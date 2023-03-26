@@ -329,7 +329,7 @@ main .row .col{
 
 
 
-.background-block{
+.background-block,.audio-block{
     display: block;
     position: absolute;
     left: 0;
@@ -340,7 +340,9 @@ main .row .col{
     opacity: .8;
     z-index: 2;
 }
-
+.audio-block{
+    display: none;
+}
 
 .bet-here{
     position: fixed;
@@ -439,6 +441,45 @@ main .row .col{
     grid-template-rows: 20% 85%; 
     z-index: 4;
 }
+
+.audio-load{
+    position: fixed;
+    border-radius: .3em;
+    top: 20%;
+    left: 15%;
+    width: 70%;
+    height: 60vh;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+
+
+.audio-load label{
+    font-size: 30px; 
+    font-weight: bolder;
+    color:white;
+}
+
+progress {
+    border-radius: 7px; 
+    width: 60%;
+    height: 22px;
+    margin-left: -11.5%;
+    box-shadow: 1px 1px 4px rgba( 0, 0, 0, 0.2 );
+  }
+  progress::-webkit-progress-bar {
+    background-color: rgb(109, 109, 109);
+    border-radius: 7px;
+  }
+  progress::-webkit-progress-value {
+    background-color: blue;
+    border-radius: 7px;
+    box-shadow: 1px 1px 5px 3px rgba(255, 255, 255, 0.8);
+  }
+  
 
 .see-profile .message{
     display: flex;
