@@ -9,12 +9,16 @@ let audio_load =  1
 
 document.querySelector(".background-block").style.display = "none"
 document.querySelector(".bet-here").style.display = "none"
+function calc(){
 
+}
 function load(){
-        let arr = ["B/B","G/G","I/i","N/N","0/0"]
+        let arr = ["B/B","I/i","N/N","G/G","0/0"]
+        let calculate = {0:[1,16],1:[16,31],2:[31,46],3:[46,61],4:[61,76]}
         for(let i = 0;i < 5;i++){
             let st = arr[i]
-            for(let j = 1; j < 81; j++){
+            let starter = calculate[i]
+            for(let j = starter[0]; j < starter[1]; j++){
                 let curr = st[0]+j
                 let link = "../img/audio/"+st+j+".mp3"
                 fetch(link)
@@ -25,7 +29,7 @@ function load(){
                         audio_load ++
                         progress.value = audio_load
                         console.log(audio_load,curr);
-                        if(audio_load == 400){
+                        if(audio_load > 74){
                             audio_block.style.display = "none"
                             audioDiv.style.display = "none"
                             if(localStorage.getItem("played") == 1){
@@ -45,7 +49,6 @@ function load(){
 }
 
 function playSound(temp) {
-    console.log(temp);
     var source = CTX.createBufferSource()
     source.buffer = All_ADUIOS[temp];
     source.connect(CTX.destination);
@@ -55,7 +58,7 @@ function playSound(temp) {
 
 (()=>{
     load()
-    if(localStorage.getItem("played") == 1 && audio_load < 399){
+    if(localStorage.getItem("played") == 1 && audio_load < 74){
         audio_block.style.display = "block"
         audioDiv.style.display = "flex"    
     }
@@ -63,7 +66,7 @@ function playSound(temp) {
 
 
 function checkAudioLoad() {
-    if(audio_load > 399){
+    if(audio_load > 74){
         return
     }
     audio_block.style.display = "block"
@@ -76,14 +79,19 @@ let columns = document.querySelector(".result")
 
 function fillColumn() {
     columns.innerHTML = ""
-    for(i = 0; i < 80; i++){
+    for(i = 0; i < 15; i++){
+        let B = 1
+        let II = 16
+        let N = 31
+        let G = 46
+        let O = 61
         columns.innerHTML += `
         <div class="row ">
-                <div class="col b-box" id="b${i}">. . . .</div>
-                <div class="col i-box" id="i${i}">. . . .</div>
-                <div class="col n-box" id="n${i}">. . . .</div>
-                <div class="col g-box" id="g${i}">. . . .</div>
-                <div class="col o-box" id="o${i}">. . . .</div>
+                <div class="col b-box" id="b${B+i}">. . . .</div>
+                <div class="col i-box" id="i${II+i}">. . . .</div>
+                <div class="col n-box" id="n${N+i}">. . . .</div>
+                <div class="col g-box" id="g${G+i}">. . . .</div>
+                <div class="col o-box" id="o${O+i}">. . . .</div>
         </div>
         ` 
     }   
@@ -100,11 +108,12 @@ forms.forEach(element => {
 
 
 function shuffle() {
-    let letter = ["b", "i", "n", "g", "o"]
+    let letter = {"b" : 0, "i" : 15, "n" : 30 , "g" : 45, "o" : 60}
     let files = []
-    for(l of letter){
-        for(i = 1; i < 81; i++){
-            files.push(l+"-"+i)
+    for(let l in letter){
+        for(i = 1; i <= 15; i++){
+            let temp = letter[l] + i
+            files.push(l+"-"+temp)
         }
     }
     let shuffledFile = []
@@ -112,6 +121,7 @@ function shuffle() {
         var random = files.splice(Math.floor(Math.random() * (i + 1)), 1)[0];
         shuffledFile.push(random)
     }
+    
     return shuffledFile
 }
 
@@ -204,7 +214,6 @@ function start() {
     <button class="bg-transparent text-white" onclick="pause(this)" >pause</button>
     `
     let getShuffledFile = shuffle()
-    
     currentValue.classList.add("circleIt")
     let counter = 0
     intervalId = setInterval(() => {
@@ -216,7 +225,7 @@ function start() {
             playSound("0"+item.slice(2))
         else
             playSound((item[0].toUpperCase())+item.slice(2))
-             
+            
         if(item[0] == "b"){
             bcol[bc].innerHTML = item
             location.href = "#"+bcol[bc].id
@@ -272,9 +281,7 @@ async function bingo() {
     currentValue.classList.remove("circleIt")
     buttons.innerHTML = `<button class="start bg-primary  text-white" onclick="restart()">Restart</button>`
     await getRate()
-    // for(let i = 1; i < 81;i++) {
-    //     audios["b"+i].pause()
-    // }
+    
 }
 
 function restart() {
