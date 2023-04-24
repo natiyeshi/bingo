@@ -343,6 +343,12 @@ async function placeBet(button) {
     } 
 
     setBalance(balance - percentage,totalBet,winner)
+    document.querySelector(".information .bb-amount").innerHTML = totalBet
+    document.querySelector(".information .bb-winner").innerHTML = totalBet - percentage
+    document.querySelector(".information").style.display = "block"
+    setTimeout(() => {
+        document.querySelector(".information").style.display = "none"
+    }, 5000);
     waitingGif.style.display = "none"
     bgBlock.style.display = "none"
     localStorage.setItem("played",1)

@@ -506,3 +506,24 @@ progress {
 i{
     cursor: pointer;
 }
+
+.information{
+    position: absolute;
+    right: 0;
+    top: 10%;
+    z-index: 11;
+    width: 400px;
+    padding: 1em;
+    display: none;
+    transform: translateX(-100%);
+    animation: slideIn 500ms ease-in forwards;   
+}
+
+@keyframes slideIn {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+}
