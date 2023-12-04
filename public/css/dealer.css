@@ -100,7 +100,6 @@ nav .circle:nth-child(5){
 @keyframes rotaten {
     from{
         transform: rotate(360deg);
-        
     }
     to{
         transform: rotate(0deg);
@@ -526,4 +525,17 @@ i{
       to {
         transform: translateY(0);
       }
+}
+
+.slide-out {
+    animation: slideOut 1s ease-in forwards;
+  }
+  
+@keyframes slideOut {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-150%);
+    }
 }

@@ -348,7 +348,7 @@ async function placeBet(button) {
     document.querySelector(".information").style.display = "block"
     setTimeout(() => {
         document.querySelector(".information").style.display = "none"
-    }, 5000);
+    }, 4000);
     waitingGif.style.display = "none"
     bgBlock.style.display = "none"
     localStorage.setItem("played",1)

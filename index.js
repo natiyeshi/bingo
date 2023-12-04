@@ -48,9 +48,9 @@ app.use("/dealer",isDealerIn,dealerRouter)
 
 
 mongoose.set("strictQuery", false);
-mongoose.connect(url,()=>{ 
-    console.log("connected")
-})
+mongoose.connect(url)
+.then(() => console.log("db connected"))
+.catch(() => console.log("connection error"))
 
 app.get("/",isDealerNotIn,(req,res)=>{ 
     res.render("deller/login.ejs")
